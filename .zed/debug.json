@@ -1,0 +1,15 @@
+[
+  {
+    "label": "Debug Phoenix server",
+    "adapter": "ElixirLS",
+    "request": "launch",
+    "projectDir": "$ZED_WORKTREE_ROOT",
+    "task": "phx.server",
+    "debugAutoInterpretAllModules": false,
+    "debugInterpretModulesPatterns": [
+      "Randonator*",
+      "RandonatorWeb*"
+    ],
+    "exitAfterTaskReturns": false
+  }
+]

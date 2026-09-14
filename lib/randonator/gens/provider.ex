@@ -1,24 +1,31 @@
-defmodule Randonator.Gens.Signer do
+defmodule Randonator.Gens.Provider do
   use GenServer
 
-  def start_link(_opts) do
-    GenServer.start_link(__MODULE__, nil)
+  def start_link(args = %{provider_name: provider_name, init_seed: _init_seed}) do
+    GenServer.start_link(__MODULE__, args, name: via(provider_name))
   end
 
   # ---
 
   @impl true
-  def init(_opts) do
+  def init(%{init_seed: seed, provider_name: name}) do
+    {pub, priv} = Randonator.ECDSA.create_keypair()
+
     state = %{
-      seed: nil,
-      private_key: nil,
-      public_key: nil,
+      provider_name: name,
+      seed: seed,
+      private_key: priv,
+      public_key: pub,
       hash: nil,
       ttl: 16,
       allowed_misses: 32
     }
 
     {:ok, state}
+  end
+
+  defp via(name) do
+    {:via, Registry, {Randonator.ProviderRegistry, name}}
   end
 
   @impl true
