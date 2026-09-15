@@ -2,8 +2,11 @@ defmodule Randonator.Application do
   # See https://elixir.hexdocs.pm/Application.html
   # for more information on OTP Applications
   @moduledoc false
+  alias Randonator.Supervisors.ProviderSupervisor
 
   use Application
+
+  @seed Application.compile_env(:randonator, :seed, 0)
 
   @impl true
   def start(_type, _args) do
@@ -14,6 +17,8 @@ defmodule Randonator.Application do
       # Start a worker by calling: Randonator.Worker.start_link(arg)
       # {Randonator.Worker, arg},
       # Start to serve requests, typically the last entry
+      {Registry, name: Randonator.ProviderRegistry, keys: :unique},
+      {ProviderSupervisor, seed: @seed},
       RandonatorWeb.Endpoint
     ]
 

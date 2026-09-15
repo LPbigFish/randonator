@@ -56,7 +56,7 @@ config :logger, :default_formatter,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :randonator, max_number_of_providers: 20
+config :randonator, max_providers: 20, seed: 0
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -1,4 +1,4 @@
-defmodule Randonator.Gens.Provider do
+defmodule Randonator.Gens.ProviderGenServer do
   use GenServer
 
   def start_link(args = %{provider_name: provider_name, init_seed: _init_seed}) do
